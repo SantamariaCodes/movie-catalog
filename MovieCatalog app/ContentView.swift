@@ -1,24 +1,35 @@
-//
-//  ContentView.swift
-//  MovieCatalog app
-//
-//  Created by Diego Santamaria on 29/12/23.
-//
-
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject private var vm = UsersViewModel()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        
+        NavigationView {
+            ZStack {
+                
+                List {
+                    ForEach(vm.users, id: \.id) {user in
+                        UserView(user: user)
+                            .listRowSeparator(.hidden)
+                    }
+                    
+                }
+                .listStyle(.plain)
+                .navigationTitle("Users")
+            }
+            .onAppear(perform: vm.fetchUsers)
         }
-        .padding()
+        
+        
+        
     }
+    
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
