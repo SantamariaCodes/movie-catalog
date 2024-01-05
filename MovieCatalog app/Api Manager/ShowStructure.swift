@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TopRatedShows: Codable {
+struct ShowStructure: Codable {
     let page: Int
     let results: [TVShow]
     let totalPages: Int
